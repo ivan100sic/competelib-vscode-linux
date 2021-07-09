@@ -1,0 +1,11 @@
+{
+    "Random number generation": {
+        "scope": "cpp",
+        "prefix": "rng",
+        "body": [
+            "mt19937 eng(chrono::high_resolution_clock::now().time_since_epoch().count());",
+            "using uid = uniform_int_distribution<ll>;",
+            "using urd = uniform_real_distribution<double>;"
+        ]
+    }
+}

@@ -1,0 +1,26 @@
+{
+	"Stopwatch": {
+		"scope": "cpp",
+		"prefix": "stopwatch",
+		"body": [
+			"using namespace chrono;",
+			"struct stopwatch {",
+			"\ttypedef time_point<high_resolution_clock> tp;",
+			"\ttp last_tick;",
+			"\tbool notock;",
+			"\tstopwatch() : notock(false) { tick(); }",
+			"\tstopwatch(int) : notock(true) { tick(); }",
+			"\t~stopwatch() { if (!notock) tock(); }",
+			"",
+			"\tvoid tick() {",
+			"\t\tlast_tick = high_resolution_clock::now();",
+			"\t}",
+			"",
+			"\tvoid tock() const {",
+			"\t\tduration<double> dur = high_resolution_clock::now() - last_tick;",
+			"\t\tcerr << \"Time: \" << dur.count() << '\\n';",
+			"\t}",
+			"};"
+		]
+	}
+}

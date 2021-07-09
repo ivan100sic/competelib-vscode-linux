@@ -1,0 +1,25 @@
+{
+    "[json]": {
+        "editor.formatOnPaste": true
+    },
+
+    "[cpp]": {
+        "editor.wordBasedSuggestions": false,
+        "editor.suggest.insertMode": "replace",
+        "editor.semanticHighlighting.enabled": true,
+        "editor.tabSize": 4,
+    },
+    
+    "files.associations": {
+        "iostream": "cpp",
+        "chrono": "cpp",
+        "limits": "cpp",
+        "complex": "cpp",
+        "bitset": "cpp",
+        "array": "cpp",
+        "*.tcc": "cpp",
+        "thread": "cpp",
+        "span": "cpp",
+        "iomanip": "cpp"
+    }
+}

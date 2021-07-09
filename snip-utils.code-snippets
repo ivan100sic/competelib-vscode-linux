@@ -1,0 +1,92 @@
+{
+	"Variables with built-in I/O": {
+		"scope": "cpp",
+		"prefix": "iovar",
+		"body": [
+			"template<class T>",
+			"struct in {",
+			"\tT x;",
+			"\tin () : x() { cin >> x; }",
+			"\tin (const T& x) : x(x) {}",
+			"\tin (T&& x) : x(x) {}",
+			"\toperator T& () { return x; }",
+			"\toperator const T& () const { return x; }",
+			"};",
+			"",
+			"template<class T>",
+			"struct out {",
+			"\tT x;",
+			"\tout () : x() {}",
+			"\tout (const T& x) : x(x) {}",
+			"\tout (T&& x) : x(x) {}",
+			"\toperator T& () { return x; }",
+			"\toperator const T& () const { return x; }",
+			"\t~out() { cout << x << ' '; }",
+			"};",
+			"",
+			"typedef in<int> iint;",
+			"typedef out<int> oint;",
+			"typedef in<ll> ill;",
+			"typedef out<ll> oll;",
+			"typedef in<string> istr;",
+			"typedef out<string> ostr;",
+			"typedef vector<int> vi;",
+			"typedef vector<iint> ivi;",
+			"typedef vector<oint> ovi;"
+		]
+	},
+
+	"Python-like range": {
+		"scope": "cpp",
+		"prefix": "rrange",
+		"body": [
+			"template<class T>",
+			"struct rr {",
+			"\tstruct valit {",
+			"\t\tT val;",
+			"\t\tvalit(T x) : val(x) {}",
+			"\t\tT operator* () const { return val; }",
+			"\t\tT operator* () { return val; }",
+			"\t\tvalit& operator++ () {",
+			"\t\t\t++val;",
+			"\t\t\treturn *this;",
+			"\t\t}",
+			"\t\tbool operator != (const valit& other) const {",
+			"\t\t\treturn val != other.val;",
+			"\t\t}",
+			"\t};",
+			"",
+			"\tconst valit l, r;",
+			"\trr(T x) : l(0), r(x) {}",
+			"\trr(T x, T y) : l(x), r(y) {}",
+			"",
+			"\tvalit begin() { return l; }",
+			"\tvalit end() { return r; }",
+			"};"
+		]
+	},
+
+	"Unique value compressor": {
+		"scope": "cpp",
+		"prefix": "compressor",
+		"body": [
+			"template<class T>",
+			"struct compressor {",
+			"\tvector<T*> v;",
+			"\tvoid operator+=(T& x) { v.push_back(&x); }",
+			"\t~compressor() { (*this)(); }",
+			"",
+			"\tT operator() (T init = T()) {",
+			"\t\tsort(v.begin(), v.end(), [](int* x, int* y) { return *x < *y; });",
+			"\t\tT last = 0, q = 0;",
+			"\t\tfor (size_t i=0; i<v.size(); i++) {",
+			"\t\t\tif (!i || *v[i] != last) q++;",
+			"\t\t\tlast = *v[i];",
+			"\t\t\t*v[i] = q - 1 + init;",
+			"\t\t}",
+			"\t\treturn q;",
+			"\t}",
+			"};"
+		]
+	}
+}

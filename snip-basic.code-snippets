@@ -1,0 +1,137 @@
+{
+	"Begin and end iterators, comma separated": {
+		"scope": "cpp",
+		"prefix": "all",
+		"body": "begin($1), end($1)"
+	},
+
+	"Comparison operator": {
+		"scope": "cpp",
+		"prefix": "lessop",
+		"body": [
+			"bool operator< (const $1& o) const {",
+			"\t$0",
+			"}"
+		]
+	},
+
+	"Sort and unique-ify": {
+		"scope": "cpp",
+		"prefix": "suq",
+		"body": [
+			"sort(begin($1), end($1));",
+			"$1.erase(unique(begin($1), end($1)), end($1));",
+			"$0"
+		]
+	},
+
+	"Pretty debugging": {
+		"scope": "cpp",
+		"prefix": "dbg",
+		"body": [
+			"namespace debug {",
+			"\tconst char yellow[] = \"\\x1b[33m\";",
+			"\tconst char magenta[] = \"\\x1b[35m\";",
+			"\tconst char blue[] = \"\\x1b[36m\";",
+			"\tconst char green[] = \"\\x1b[32m\";",
+			"\tconst char reset[] = \"\\x1b[0m\";",
+			"\tconst char bold[] = \"\\x1b[1m\";",
+			"",
+			"\ttemplate<class T>",
+			"\tauto debug(const T& x) -> decltype(cerr << x, 0) {",
+			"\t\treturn cerr << green << x << reset, 0; ",
+			"\t}",
+			"",
+			"\tint debug(const string& x) {",
+			"\t\treturn cerr << yellow << '\"' << x << '\"' << reset, 0;",
+			"\t}",
+			"",
+			"\ttemplate<size_t i, class T>",
+			"\tint debug_tuple(const T& x) {",
+			"\t\tconstexpr size_t n = tuple_size<T>::value;",
+			"\t\tif (i == 0) {",
+			"\t\t\tcerr << '(';",
+			"\t\t}",
+			"\t\tdebug(get<i>(x));",
+			"\t\tif constexpr (i == n - 1) {",
+			"\t\t\tcerr << ')';",
+			"\t\t} else {",
+			"\t\t\tcerr << \", \";",
+			"\t\t\tdebug_tuple<i+1>(x);",
+			"\t\t}",
+			"\t\treturn 0;",
+			"\t}",
+			"",
+			"\ttemplate<class T>",
+			"\tauto debug(const T& x) -> decltype(debug(get<0>(x))) {",
+			"\t\treturn debug_tuple<0>(x);",
+			"\t}",
+			"",
+			"\ttemplate<class T>",
+			"\tauto debug(const T& x) -> decltype(debug(*x.begin())) {",
+			"\t\tcerr << '{';",
+			"\t\tauto it = x.begin();",
+			"\t\twhile (1) {",
+			"\t\t\tif (it == x.end()) {",
+			"\t\t\t\tcerr << '}';",
+			"\t\t\t\treturn 0;",
+			"\t\t\t} else {",
+			"\t\t\t\tdebug(*it);",
+			"\t\t\t\tif (next(it) != x.end()) {",
+			"\t\t\t\t\tcerr << \", \";",
+			"\t\t\t\t}",
+			"\t\t\t\t++it;",
+			"\t\t\t}",
+			"\t\t}",
+			"\t}",
+			"",
+			"\ttemplate<class T>",
+			"\tvoid debug(int l, const T& x, const char* n) {",
+			"\t\tcerr << magenta << \"Line \" << l << \": \" << blue << bold << n << reset << \" = \";",
+			"\t\tdebug(x);",
+			"\t\tcerr << '\\n';",
+			"\t}",
+			"}",
+			"",
+			"#ifdef LOCAL",
+			"\t#define dbg(x) (debug::debug(__LINE__, x, #x))",
+			"#else",
+			"\t#define dbg(x)",
+			"#endif"
+		]
+	},
+
+	"Try to optimize compiler for speed": {
+		"scope": "cpp",
+		"prefix": "optimize",
+		"body": [
+			"#pragma GCC optimize(\"Ofast\")",
+			"#pragma GCC optimize(\"unroll-loops\")",
+			"#pragma GCC target(\"sse,sse2,sse3,ssse3,sse4,popcnt,abm,mmx,avx,tune=native\")"
+		]
+	},
+
+	"Ordered set": {
+		"scope": "cpp",
+		"prefix": "orderedset",
+		"body": [
+			"#include <ext/pb_ds/assoc_container.hpp>",
+			"#include <ext/pb_ds/tree_policy.hpp>",
+			"using namespace __gnu_pbds;",
+			"typedef tree<ll, null_type, less<ll>, rb_tree_tag, tree_order_statistics_node_update> ordered_set;",
+			"// find_by_order(size_t) -> iterator, order_of_key(val) -> size_t"
+		]
+	},
+
+	"Testcases": {
+		"scope": "cpp",
+		"prefix": "testcases",
+		"body": [
+			"int t;",
+			"cin >> t;",
+			"while (t--) {",
+			"\t$0",
+			"}"
+		]
+	}
+}

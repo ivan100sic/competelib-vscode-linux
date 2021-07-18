@@ -20,6 +20,15 @@
         "*.tcc": "cpp",
         "thread": "cpp",
         "span": "cpp",
-        "iomanip": "cpp"
+        "iomanip": "cpp",
+        "deque": "cpp",
+        "string": "cpp",
+        "vector": "cpp",
+        "valarray": "cpp",
+        "list": "cpp",
+        "unordered_map": "cpp",
+        "unordered_set": "cpp",
+        "random": "cpp",
+        "string_view": "cpp"
     }
 }

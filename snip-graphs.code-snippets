@@ -1,0 +1,38 @@
+{
+	"Euler tour on undirected graphs": {
+		"scope": "cpp",
+		"prefix": "eulertour",
+		"body": [
+            "struct euler_tour {",
+            "\tstruct edge { list<int>::iterator p, q; int u, v; };",
+            "\tvector<list<int>> e;",
+            "\tvector<edge> f;",
+            "\teuler_tour(int n) : e(n) {}",
+            "\tvoid add_edge(int x, int y) {",
+            "\t\tint i = f.size();",
+            "\t\te[x].push_back(i);",
+            "\t\te[y].push_back(i);",
+            "\t\tf.push_back({--e[x].end(), --e[y].end(), x, y});",
+            "\t}",
+            "",
+            "\tlist<int> dfs(int x) {",
+            "\t\tlist<int> q;",
+            "\t\twhile (e[x].size()) {",
+            "\t\t\tauto& l = f[e[x].back()];",
+            "\t\t\tq.push_back(x);",
+            "\t\t\tx ^= l.u ^ l.v;",
+            "\t\t\te[l.u].erase(l.p);",
+            "\t\t\te[l.v].erase(l.q);",
+            "\t\t}",
+            "\t\tfor (auto it = q.begin(); it != q.end(); ++it) q.splice(it, dfs(*it));",
+            "\t\treturn q;",
+            "\t}",
+            "",
+            "\tvector<int> operator()(int x) {",
+            "\t\tauto q = dfs(x);",
+            "\t\treturn vector<int>(begin(q), end(q));",
+            "\t}",
+            "};"
+        ]
+	}
+}

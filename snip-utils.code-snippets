@@ -90,5 +90,33 @@
 			"\t}",
 			"};"
 		]
+	},
+
+	"Minimum accumulator": {
+		"scope": "cpp",
+		"prefix": "minval",
+		"body": [
+			"template<class T = int>",
+			"struct minval {",
+			"\tT x;",
+			"\tminval(T x = numeric_limits<T>::max()) : x(x) {}",
+			"\tT operator() () const { return x; }",
+			"\tminval operator+ (const minval& b) const { return min(x, b.x); }",
+			"};"
+		]
+	},
+
+	"Maximum accumulator": {
+		"scope": "cpp",
+		"prefix": "maxval",
+		"body": [
+			"template<class T = int>",
+			"struct maxval {",
+			"\tT x;",
+			"\tmaxval(T x = numeric_limits<T>::min()) : x(x) {}",
+			"\tT operator() () const { return x; }",
+			"\tmaxval operator+ (const maxval& b) const { return max(x, b.x); }",
+			"};"
+		]
 	}
 }

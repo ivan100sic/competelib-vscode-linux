@@ -433,5 +433,46 @@
 			"\t}",
 			"};"
 		]
+	},
+
+	"Range Add Max": {
+		"scope": "cpp",
+		"prefix": "rangeaddmax",
+		"body": [
+			"template<class T = int>",
+			"decltype(auto) range_add_max(int n) {",
+			"\treturn segtreelazy(n, [](T x, T y) { return max(x, y); }, plus<T>(), plus<T>(),",
+			"\t\tnumeric_limits<T>::min(), T(), T());",
+			"}"
+		]
+	},
+
+	"Range Add Min": {
+		"scope": "cpp",
+		"prefix": "rangeaddmin",
+		"body": [
+			"template<class T = int>",
+			"decltype(auto) range_add_min(int n) {",
+			"\treturn segtreelazy(n, [](T x, T y) { return min(x, y); }, plus<T>(), plus<T>(),",
+			"\t\tnumeric_limits<T>::max(), T(), T());",
+			"}"
+		]
+	},
+
+	"Range Add Sum": {
+		"scope": "cpp",
+		"prefix": "rangeaddsum",
+		"body": [
+			"template<class T = int>",
+			"decltype(auto) range_add_sum(int n) {",
+			"\tstruct node {",
+			"\t\tT s; int l;",
+			"\t\tnode operator+ (const node& b) const { return {s + b.s, l + b.l}; }",
+			"\t\tT operator() () const { return s; }",
+			"\t};",
+			"\treturn segtreelazy(n, plus<node>(), plus<T>(), [](node n, T v) {",
+			"\t\treturn node{n.s + v * n.l, n.l}; }, node{T(), 0}, T(), node{T(), 1});",
+			"}"
+		]
 	}
 }

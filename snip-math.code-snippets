@@ -99,5 +99,41 @@
 			"\t}",
 			"};"
 		]
+	},
+
+	"Mexer (Generic)": {
+		"scope": "cpp",
+		"prefix": "mexer",
+		"body": [
+			"struct mexer {",
+			"\tvector<int> a;",
+			"\tvoid operator+= (int x) { a.push_back(x); }",
+			"\tint operator() () const {",
+			"\t\tint n = a.size();",
+			"\t\tvector<char> u(n);",
+			"\t\tfor (int x : a) if (x < n) u[x] = 1;",
+			"\t\treturn find(begin(u), end(u), 0) - begin(u);",
+			"\t}",
+			"};"
+		]
+	},
+
+	"Mexer (Small numbers)": {
+		"scope": "cpp",
+		"prefix": "mexersmall",
+		"body": [
+			"template<int n>",
+			"struct mexer_small {",
+			"\tull a[n];",
+			"",
+			"\tmexer_small() { memset(a, 0, sizeof(a)); }",
+			"\tvoid operator+= (int x) { a[x >> 6] |= 1ull << (x & 63); }",
+			"\tint operator() () const {",
+			"\t\tfor (int i=0; i<n; i++) if (a[i] != ~0ull) return (i << 6) + __builtin_ctzll(~a[i]);",
+			"\t\treturn -1;",
+			"\t}",
+			"};",
+			""
+		]
 	}
 }

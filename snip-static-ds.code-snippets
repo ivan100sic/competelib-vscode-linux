@@ -435,6 +435,38 @@
 		]
 	},
 
+	"Union-find with more tracking": {
+		"scope": "cpp",
+		"prefix": "unionfindfat",
+		"body": [
+			"struct union_find_fat {",
+			"\tvector<vector<int>> a;",
+			"\tvector<int> b;",
+			"\tset<int> r;",
+			"",
+			"\tunion_find_fat(int n) : a(n), b(n) {",
+			"\t\tfor (int i=0; i<n; i++) {",
+			"\t\t\ta[i] = {i};",
+			"\t\t\tb[i] = i;",
+			"\t\t\tr.emplace_hint(r.end(), i);",
+			"\t\t}",
+			"\t}",
+			"",
+			"\tbool join(int x, int y) {",
+			"\t\tx = b[x];",
+			"\t\ty = b[y];",
+			"\t\tif (x == y) return false;",
+			"\t\tif (a[x].size() > a[y].size()) swap(x, y);",
+			"\t\ta[y].insert(a[y].end(), begin(a[x]), end(a[x]));",
+			"\t\tfor (int z : a[x]) b[z] = y;",
+			"\t\ta[x].clear();",
+			"\t\tr.erase(x);",
+			"\t\treturn true;",
+			"\t}",
+			"};"
+		]
+	},
+
 	"Range Add Max": {
 		"scope": "cpp",
 		"prefix": "rangeaddmax",

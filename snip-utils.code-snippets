@@ -118,5 +118,21 @@
 			"\tmaxval operator+ (const maxval& b) const { return max(x, b.x); }",
 			"};"
 		]
+	},
+
+	"Bidirectional sum": {
+		"scope": "cpp",
+		"prefix": "bidirectionalsum",
+		"body": [
+			"template<class T, class F = plus<T>>",
+			"struct bidirectional_sum {",
+			"\tT f, b;",
+			"\tbidirectional_sum(T x = T()) : f(x), b(x) {}",
+			"\tbidirectional_sum(T&& f, T&& b) : f(f), b(b) {}",
+			"\tbidirectional_sum operator+ (const bidirectional_sum& o) const {",
+			"\t\treturn {F()(f, o.f), F()(o.b, b)};",
+			"\t}",
+			"};"
+		]
 	}
 }

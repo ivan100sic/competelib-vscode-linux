@@ -166,5 +166,53 @@
 			"const int mod = 1'000'000'007;",
 			"typedef modint<mod> mint;"
 		]
+	},
+
+	"Divisor loop": {
+		"scope": "cpp",
+		"prefix": "divisorloop",
+		"body": [
+			"template<class T>",
+			"struct divisor_loop {",
+			"\tT n;",
+			"",
+			"\tdivisor_loop(T n) : n(n) {}",
+			"",
+			"\tstruct iterator {",
+			"\t\tT n, q, l, r;",
+			"",
+			"\t\ttuple<T, T, T> operator*() {",
+			"\t\t\treturn {q, l, r};",
+			"\t\t}",
+			"",
+			"\t\titerator& operator++() {",
+			"\t\t\tif (q == 1) {",
+			"\t\t\t\tl = r = q = 0;",
+			"\t\t\t} else {",
+			"\t\t\t\tl = r + 1;",
+			"\t\t\t\tq = n / l;",
+			"\t\t\t\tr = n / q;",
+			"\t\t\t}",
+			"\t\t\treturn *this;",
+			"\t\t}",
+			"",
+			"\t\tbool operator== (const iterator& b) const {",
+			"\t\t\treturn tie(n, q, l, r) == tie(b.n, b.q, b.l, b.r);",
+			"\t\t}",
+			"",
+			"\t\tbool operator!= (const iterator& b) const {",
+			"\t\t\treturn !(*this == b);",
+			"\t\t}",
+			"\t};",
+			"",
+			"\titerator begin() {",
+			"\t\treturn {n, n, T(1), T(1)};",
+			"\t}",
+			"",
+			"\titerator end() {",
+			"\t\treturn {n, T(0), T(0), T(0)};",
+			"\t}",
+			"};"
+		]
 	}
 }

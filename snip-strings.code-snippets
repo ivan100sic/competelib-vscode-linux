@@ -311,6 +311,25 @@
 		]
 	},
 
+	"Prefix function (KMP)": {
+		"scope": "cpp",
+		"prefix": "prefixfunction",
+		"body": [
+			"template<class V>",
+			"vector<int> prefix_function(const V& v) {",
+			"\tint n = v.size();",
+			"\tvector<int> f(n+1);",
+			"\tf[0] = -1;",
+			"\tfor (int i=1; i<=n; i++) {",
+			"\t\tint r = f[i-1];",
+			"\t\twhile (r != -1 && v[r] != v[i-1]) r = f[r];",
+			"\t\tf[i] = r+1;",
+			"\t}",
+			"\treturn f;",
+			"}"
+		]
+	},
+
 	"Duval's algorithm (Lyndon factorization)": {
 		"scope": "cpp",
 		"prefix": "lyndonfactorization",

@@ -120,6 +120,24 @@
 		]
 	},
 
+	"Min-Plus semiring (unsafe)": {
+		"scope": "cpp",
+		"prefix": "minplus",
+		"body": [
+			"template<class T>",
+			"struct minplus {",
+			"\tT x;",
+			"\tminplus(T x = numeric_limits<T>::max() / 2) : x(x) {}",
+			"\tT operator() () const { return x; }",
+			"\tminplus operator+ (const minplus& b) const { return min(x, b.x); }",
+			"\t// Unsafe chained multiplication. Use with caution.",
+			"\tminplus operator* (const minplus& b) const { return x + b.x; }",
+			"\tminplus& operator+= (const minplus& b) { return *this = *this + b; }",
+			"\tminplus& operator*= (const minplus& b) { return *this = *this * b; }",
+			"};"
+		]
+	},
+
 	"Bidirectional sum": {
 		"scope": "cpp",
 		"prefix": "bidirectionalsum",
